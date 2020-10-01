@@ -1,0 +1,98 @@
+Point: 
+
+https://www.positronx.io/free-angular-tutorials/
+#############################################
+*ngFor
+
+<div>
+  <table border="1">
+    <tr>
+      <td>name</td>
+      <td>college</td>
+    </tr>
+    <tr *ngFor="let item of data">
+      <td>{{item.name}}</td>
+      <td>{{item.college}}</td>
+    </tr>
+  </table>
+
+  <h3 *ngFor="let item of array">
+    {{item}}
+  </h3>
+</div>
+
+
+  array=['micron','maldanna','priyatha','cbit'];
+  data=[
+
+    {
+      name:'Raju',
+      college:'cbit'
+    },
+    {
+      name:'Ravi',
+      college:'cbit'
+    }
+
+  ]
+
+
+###############################################################
+simpleForms
+<div>
+
+  <form #simpleForm="ngForm" (ngSubmit)="getValues(simpleForm.value)">
+    <input type="text" name="name" ngModel placeholder="enter name"/>
+    <br>
+    <input type="email" name="email" ngModel placeholder="enter mail"/>
+  <br>
+  <button>getData</button>
+
+  </form>
+
+</div>
+
+
+  getValues(val)
+  {
+    console.log(val);
+  }
+
+#################################################################
+Header and footer :
+<h5> I am  header </h5>
+
+h5{
+  background-color: red;
+  padding: 1px;
+  position: absolute;
+  width: 95%;
+  bottom: 0%
+}
+
+<h3 style="color:blue">inline style</h3>
+<h3 [style.color]="'green'"
+     [style.background]="'orange'">
+      style binding
+</h3>
+
+<h3 [style.color]="color">
+  getting color value from typescript
+
+</h3>
+<h3 [style.color]="error?'green':'red'">conditional style</h3>
+
+  color="red";
+  error=true;
+
+
+Adding bootstrap to angular
+ng add @ng-bootstrap/ng-bootstrap
+see you tube video
+
+Adding UI material
+ng add @angular/material
+
+see you tube
+
+
