@@ -1,0 +1,22 @@
+https://github.com/ganatan/angular-example-lazy-loading
+
+above link is complete fine 
+
+but just do following things to proper execution
+
+in Map-Component
+
+  declarations: [MapComponent],
+  imports: [CommonModule, MapRoutingModule],
+  exports: [MapComponent],
+  providers: []
+  
+ 
+in Mailing-Component
+
+ declarations: [MailingComponent],
+  imports: [CommonModule, MailingRoutingModule],
+  exports: [MailingComponent]
+  
+  
+  then 
