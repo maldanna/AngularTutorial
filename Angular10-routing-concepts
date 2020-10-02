@@ -1,0 +1,60 @@
+ Reference : https://github.com/ganatan/angular-example-routing
+@@ app-routing.module.ts
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './home/home.component';
+import {AboutComponent} from './about/about.component';
+
+const routes: Routes = [
+  { path: 'home', component: HomeComponent, },
+  { path: 'about', component: AboutComponent }
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  declarations: []
+})
+export class AppRoutingModule { }
+
+
+
+@@@@@@@@@@  app.component.html
+
+<a routerLink="/about">About</a>
+<br>
+<br>
+<a routerLink="/home">Home</a>
+<router-outlet></router-outlet>
+
+@@@@@@@@@@@@@   app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+
+import { AboutComponent } from './about/about.component';
+
+import { AppRoutingModule } from './app-routing.module';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
