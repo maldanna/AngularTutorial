@@ -20,3 +20,107 @@ in Mailing-Component
   
   
   then 
+@@@@@@@@@@@@@@@@@
+contact.routing-module.ts
+
+ensure  quoets should be in proper way  in all fiels ( while copy fromm github) here liune number 38 ( instad of single quote will have @   `  @ )
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { ContactComponent } from './contact.component';
+
+const routes: Routes = [
+  {
+    path: '', component: ContactComponent, children: [
+     /* {
+        path: '',
+        loadChildren: () => import(`./mailing/mailing.module`)
+          .then(m => m.MailingModule)
+      },
+      */
+     
+      {
+        path: 'mailing',
+        loadChildren: () => import('./mailing/mailing.module')
+          .then(m => m.MailingModule)
+      },
+      
+      {
+        path: 'map',
+        loadChildren: () => import('./map/map.module')
+          .then(m => m.MapModule)
+      },
+      /*
+      {
+        path: '**',
+        loadChildren: () => import(`./mailing/mailing.module`)
+          .then(m => m.MailingModule)
+      },
+*/
+    ]
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ContactRoutingModule { }
+
+
+
+
+
+
+
+
+
+
+
+
+@@@@@@@@@@@@@@
+
+map.module.ts
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+
+import { MapComponent } from "./map.component";
+
+import { MapRoutingModule } from "./map-routing.module";
+
+@NgModule({
+  declarations: [MapComponent],
+  imports: [CommonModule, MapRoutingModule],
+  exports: [MapComponent],
+  providers: []
+})
+export class MapModule {}
+
+@@@@
+mailing.module.ts
+
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { MailingRoutingModule } from './mailing-routing.module';
+
+import  {MailingComponent} from './mailing.component';
+
+
+
+@NgModule({
+  declarations: [MailingComponent],
+  imports: [
+    CommonModule,
+    MailingRoutingModule
+  ],
+  exports: [MailingComponent],
+  providers: []
+})
+
+
+export class MailingModule { }
+
+
