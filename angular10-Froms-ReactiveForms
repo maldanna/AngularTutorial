@@ -1,1 +1,22 @@
-.
+###############################################################
+simpleForms
+<div>
+
+  <form #simpleForm="ngForm" (ngSubmit)="getValues(simpleForm.value)">
+    <input type="text" name="name" ngModel placeholder="enter name"/>
+    <br>
+    <input type="email" name="email" ngModel placeholder="enter mail"/>
+  <br>
+  <button>getData</button>
+
+  </form>
+
+</div>
+
+
+  getValues(val)
+  {
+    console.log(val);
+  }
+
+#################################################################
