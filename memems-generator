@@ -117,3 +117,31 @@
 
 
 </html>
+
+
+
+div {
+  text-align: center;
+}
+
+#div1 {
+  height: 70px;
+  text-align: center;
+  padding: 20px;
+  color: blue;
+  background-color: burlywood;
+  font-family: "Marck Script", cursive;
+  font-size: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
