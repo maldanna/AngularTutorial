@@ -29,7 +29,7 @@
                 <form>
                   <div class="form-group">
                     <label for="">select an image</label>
-                    <input type="file" class="form-control" accept="image/*" (onchange)='preview()'>
+                    <input type="file" class="form-control" accept="image/*" (change)='preview()'>
                   </div>
                   <div class="form-group">
                     <label for="">Top text</label>
@@ -135,6 +135,23 @@ div {
 }
 
 
+
+import { Component,ViewChild } from "@angular/core";
+
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  @ViewChild('memeCanvas',{static:false}) myCanvas;
+
+  title = "CodeSandbox";
+  preview(e:any){
+    console.log(e);
+  }
+}
 
 
 
