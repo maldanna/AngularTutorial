@@ -371,36 +371,70 @@ export class AppComponent {
   }
 
   drawText(){
+    let canvas=this.myCanvas.nativeElement;import { Component, ViewChild } from "@angular/core";
+import { ColorEvent } from "ngx-color";
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  title = "CodeSandbox";
+  topText: string = "";
+  bottomText: string = "";
+  fileEvent: any;
+  textColor: string = "#000000";
+  backgroundColor = "#F9F9FB";
+  @ViewChild("myCanvas", { static: false }) myCanvas;
+
+  preview(e: any) {
+    this.fileEvent = e;
+    let canvas = this.myCanvas.nativeElement;
+    let ctx = canvas.getContext("2d");
+
+    let render = new FileReader();
+    render.readAsDataURL(e.target.files[0]);
+    render.onload = function (event) {
+      console.log("this is onload function");
+      const img = new Image();
+      console.log(img);
+      img.src = event.target.result as string;
+      console.log(img);
+      img.onload = function () {
+        ctx.drawImage(img, 50, 150, 600, 500);
+      };
+    };
+    console.log("i am at preview end function");
+  }
+
+  drawText() {
     let canvas=this.myCanvas.nativeElement;
     let ctx=canvas.getContext('2d');
-    ctx.clearReact(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle=this.backgroundColor;
-    ctx.fillReact(0,0,canvas.width,canvas.height);
+    ctx.fillRect(0,0,canvas.width,canvas.height);
     this.preview(this.fileEvent);
     ctx.fillStyle=this.textColor;
     ctx.font='50px Comic Sans MS'
     ctx.fillText(this.topText,canvas.width/2,100);
-    ctx.fillText(this.bottomText,canvas.width/2,750);
+    ctx.fillText(this.bottomText,canvas.width/2,800);
 
-  }
-  canvasTextColor($event:ColorEvent){
-
-    this.textColor=$event.color.hex;
-
-  }
- 
- canvasBackgroundColor($event:ColorEvent){
-   this.backgroundColor=$event.color.hex;
-   this.drawText();
-
- }
-
-
-
-
+    console.log("this is from draw text");
   }
 
+  canvasTextColor($event: ColorEvent) {
+    console.log("this is text color");
+    this.textColor = $event.color.hex;
+    this.drawText();
+  }
+
+  canvasBackgroundColor($event: ColorEvent) {
+    console.log("this is background color");
+    this.backgroundColor = $event.color.hex;
+    this.drawText();
+  }
 }
+
 
 
 %%%%% 
@@ -507,7 +541,7 @@ app.component.html
                       <div>
                         <label for="">Background color</label>
                         <color-chrome 
-                        (onChangeComplete)="canvasColor($event)"
+                        (onChangeComplete)="canvasBackgroundColor($event)"
                         ></color-chrome>
                       </div>
                     </div>
@@ -523,9 +557,9 @@ app.component.html
           <div class="col-md-6">
             <canvas
               class="drop-shadow"
-              ##nameCanvas
-              width="700"
-              height="600"
+              #myCanvas
+              width="600"
+              height="900"
               style="background-color: ghostwhite;"
             >
             </canvas>
@@ -556,6 +590,48 @@ app.component.html
 
 
 
+
+
+
+
+
+
+
+
+
+
+div {
+  text-align: center;
+}
+
+#div1 {
+  height: 70px;
+  text-align: center;
+  padding: 20px;
+  color: blue;
+  background-color: burlywood;
+  font-family: "Marck Script", cursive;
+  font-size: 25px;
+}
+
+
+
+
+
+
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import {FormsModule} from "@angular/forms"
+import { AppComponent } from "./app.component";
+import {ColorChromeModule} from "ngx-color/chrome"
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule,FormsModule,ColorChromeModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
 
 
 
