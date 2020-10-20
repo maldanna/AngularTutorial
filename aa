@@ -1,0 +1,72 @@
+
+	import { Component } from "@angular/core";
+//import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { String } from "core-js";
+import { DomSanitizer } from "@angular/platform-browser";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  title = "CodeSandbox";
+  imageUrl = null;
+  photo: any;
+  images = [];
+
+  constructor(public _DomSanitizationService: DomSanitizer) {
+    let img =
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==";
+    //   const headers = new HttpHeaders();
+    console.log(img);
+    // headers.append('Content-Type', 'multipart/form-data');
+    // headers.append('Accept', 'application/json');
+    // headers.append('Access-Control-Allow-Origin','*');
+    //   this.http.get("https://www.w3schools.com/php/phptryit.asp?filename=tryphp_intro",
+    //   {headers:headers,responseType: 'json'}).
+    //   subscribe((data) => console.log(data));
+    //  }
+    fetch(img)
+      .then((res) => res.blob())
+      .then((blob) => {
+        var fd = new FormData();
+        fd.append("stphoto", blob, "filename");
+        console.log(blob);
+
+        this.photo = blob;
+        var myReader: FileReader = new FileReader();
+        myReader.onloadend = (e) => {
+          this.imageUrl = this._DomSanitizationService.bypassSecurityTrustUrl(
+            <string>myReader.result
+          );
+          this.images.push(this.imageUrl);
+          this.images.push(this.imageUrl);
+        };
+        myReader.readAsDataURL(this.photo);
+      });
+  }
+}
+
+
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <img
+    width="300"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+  <h1>hello world</h1>
+  <div *ngFor="let image of images">
+    <img [src]="image" height="200" width="200" class="img-thumnail" />
+  </div>
+
+  <img [src]="imageUrl" height="200" width="200" class="img-thumnail" />
+</div>
+
+s
+
+
