@@ -2,6 +2,121 @@
     Key: <b>{{item.key}}</b> and Value: <b>{{item.value}}</b>
 </div>
 
+import { Component } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  title = "CodeSandbox";
+  imageUrl = null;
+  arr = [1, 2];
+  //Using
+ 
+  string1 = "url";
+  value1 = 1;
+  s="url1";
+
+  map = new Map<any, any>();
+
+  constructor(public _DomSanitizationService: DomSanitizer) {
+    for (let i = 0; i < 15; i++) {
+      this.fun1();
+    }
+    
+    
+
+
+  }
+
+  fun1() {
+    let img =
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==";
+
+    fetch(img)
+      .then((res) => res.blob())
+      .then((blob) => {
+        var myReader: FileReader = new FileReader();
+        //console.log("iam before array type");
+        //console.log(typeof this.arr);
+        myReader.onloadend = (e) => {
+          // console.log(myReader.result);
+          this.imageUrl = this._DomSanitizationService.bypassSecurityTrustUrl(
+            <string>myReader.result
+          );
+          this.map.set(this.string1 + this.value1, this.imageUrl);
+          this.value1=this.value1+1;
+
+          //console.log(this.imageUrl["changingThisBreaksApplicationSecurity"]);
+          // console.log("printed");
+        };
+        myReader.readAsDataURL(blob);
+        //console.log(myReader.readAsDataURL(blob));
+      });
+  }
+}
+
+
+
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div>
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <div *ngFor="let item of map | keyvalue">
+    <div class="column">
+      <img
+        [src]="map.get(item.key)"
+        height="300"
+        width="300"
+        class="img-thumnail"
+      />
+    </div>
+  </div>
+
+  <!--div *ngFor="let item of map | keyvalue">
+      <img
+      [src]='map.get(item.key)'
+       height="200"
+      width="200"
+      style="top: 200"
+    
+
+      class="img-thumnail"
+    />
+  </div-->
+
+  <div>
+    {{arr[0]}}
+  </div>
+</div>
+
+
+div {
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 
 
 
